@@ -46,31 +46,31 @@ router.post('/message', checkUserKey, (req, res) => {
             ]
         }
     };
-    // if (trash === 'true') {
-    //      massage = {
-    //         "message": {
-    //             "text": 'N4동 쓰레기통을 비워주세요!!'
-    //         },
-    //         "keyboard": {
-    //             "type": "buttons",
-    //             "buttons": [
-    //                 "청소확인",
-    //             ]
-    //         }
-    //     };
-    // } else {
-    //     massage = {
-    //         "message": {
-    //             "text": '아직 여유 있어요!!'
-    //         },
-    //         "keyboard": {
-    //             "type": "buttons",
-    //             "buttons": [
-    //                 "청소확인",
-    //             ]
-    //         }
-    //     };
-    // }
+    if (trash === 'true') {
+         massage = {
+            "message": {
+                "text": 'N4동 쓰레기통을 비워주세요!!'
+            },
+            "keyboard": {
+                "type": "buttons",
+                "buttons": [
+                    "청소확인",
+                ]
+            }
+        };
+    } else {
+        massage = {
+            "message": {
+                "text": '아직 여유 있어요!!'
+            },
+            "keyboard": {
+                "type": "buttons",
+                "buttons": [
+                    "청소확인",
+                ]
+            }
+        };
+    }
     res.set({
         'content-type': 'application/json'
     }).send(JSON.stringify(massage));
