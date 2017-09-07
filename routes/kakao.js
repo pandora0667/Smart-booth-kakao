@@ -1,6 +1,16 @@
 const express = require('express'); 
 const router = express.Router();
-let test = 'N4동 쓰레기통을 비워주세요!!';
+const socket = require('socket.io-client')('http://jusk2.asuscomm.com:5002');
+let trash = 'false';
+
+socket.on('connected', function (data) {
+    console.log(data);
+});
+
+socket.on('trash', function (data) {
+    trash = data;
+});
+
 const checkUserKey = (req, res, next) => {
     if (req.body.user_key !== undefined) {
         next();
@@ -25,17 +35,32 @@ router.post('/message', checkUserKey, (req, res) => {
         type: req.body.type,
         content: req.body.content
     };
-    let massage = {
-        "message": {
-            "text": test
-        },
-        "keyboard": {
-            "type": "buttons",
-            "buttons": [
-                "청소확인",
-            ]
-        }
-    };
+    let massage;
+    if (trash === 'true') {
+         massage = {
+            "message": {
+                "text": 'N4동 쓰레기통을 비워주세요!!'
+            },
+            "keyboard": {
+                "type": "buttons",
+                "buttons": [
+                    "청소확인",
+                ]
+            }
+        };
+    } else {
+        massage = {
+            "message": {
+                "text": '아직 여유 있어요!!'
+            },
+            "keyboard": {
+                "type": "buttons",
+                "buttons": [
+                    "청소확인",
+                ]
+            }
+        };
+    }
     res.set({
         'content-type': 'application/json'
     }).send(JSON.stringify(massage));
