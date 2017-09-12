@@ -23,7 +23,7 @@ router.get('/keyboard', (req, res) => {
     console.log('*****   connect keyboard router   *****');
     const menu = {
         type: 'buttons',
-        buttons: ["청소확인"]
+        buttons: ["N5동 청소확인"]
     };
     res.set({
         'contents-type': 'application/json'
@@ -37,7 +37,7 @@ router.post('/message', checkUserKey, (req, res) => {
     };
     let msg = '아직 여유 있어요^^';
     if (trash === 'true') {
-        msg = 'N4동 쓰레기통을 비워주세요!!';
+        msg = 'N5동 쓰레기통을 비워주세요!!';
     }
     let massage = {
         "message": {
@@ -46,7 +46,7 @@ router.post('/message', checkUserKey, (req, res) => {
         "keyboard": {
             "type": "buttons",
             "buttons": [
-                "청소확인",
+                "N5동 청소확인",
             ]
         }
     };
